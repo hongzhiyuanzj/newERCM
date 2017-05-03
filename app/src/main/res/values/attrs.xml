@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundButton">
+        <attr name="radius" format="float"></attr>
+        <attr name="bg" format="color"></attr>
+        <attr name="fg" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="LabelTextInputView">
+        <attr name="label" format="string"></attr>
+        <attr name="clearIcon" format="boolean"></attr>
+        <attr name="textSize" format="dimension"></attr>
+    </declare-styleable>
+
+</resources>
