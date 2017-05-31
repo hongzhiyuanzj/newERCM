@@ -29,6 +29,11 @@
   <string name="allow_login">允许登录</string>
   <string name="login_success">登录成功</string>
   <string name="login_fail">登录失败</string>
+  <string name="username">用户名</string>
+  <string name="mobile">手机</string>
+  <string name="password">密码</string>
+  <string name="certify_code">验证码</string>
+  <string name="please_enter_mobile_number">请输入您的手机号</string>
   <string name="send_code_success">发送验证码成功</string>
   <string name="send_code_failure">发送验证码失败</string>
   <string name="code_incorrect">验证码错误</string>
@@ -42,7 +47,46 @@
   <string name="register_failure">注册失败</string>
   <string name="go_to_library">去图书馆找书</string>
   <string name="search">搜索</string>
-  <string name="author">作者：</string>
+  <string name="author">作　者：</string>
+  <string name="add_shelf">加入书架</string>
+  <string name="start_reading">立即阅读</string>
+  <string name="i_recommend">我要荐购</string>
+  
+  <string name="data_manage">资料管理</string>
+  <string name="my_recommend">我的荐购</string>
+  <string name="apply_recognize">申请认证</string>
+  <string name="safe_setting">安全设置</string>
+
+  <string name="none">无</string>
+  <string name="writing_info">作品信息</string>
+  <string name="show_total">展开全部</string>
+  <string name="book_tag">图书标签</string>
+  <string name="book_info">图书信息</string>
+  <string name="read_link">阅读链接</string>
+
+  <string name="sure">确定</string>
+  <string name="cancel">取消</string>
+  <string name="share">分享</string>
+  <string name="talk">评论</string>
+  <string name="i_want_talk">我要评论</string>
+  <string name="look_all_talk">查看所有评论</string>
+  <string name="no_comment">暂无评论，抢个沙发吧~</string>
+  <string name="commit_comment_on_this">在此发表评论~</string>
+  <string name="rating">评分：</string>
+  <string name="talk_sccuess">评论成功</string>
+  <string name="talk_failure">评论失败</string>
+  <string name="commit">提交</string>
+
+  <string name="book_search_hint">书名、作品、出版社</string>
+  <string name="recommend_list">荐购书单</string>
+  <string name="you_have_recommend">您已推荐</string>
+  <string name="recommend_success">推荐成功</string>
+
+  <string name="not_find_result">未搜索到结果</string>
+  <string name="identify">认证</string>
+  <string name="apply_success">申请成功</string>
+  <string name="apply_failure">申请失败</string>
+
 
   <!--////////////////////////////  zxing ////////////////////////////////////-->
   <string name="app_picker_name">应用</string>

@@ -10,6 +10,15 @@
     <color name="secondaryText">#757575</color>
     <color name="dividerColor">#BDBDBD</color>
     <color name="pressColor">#1c7ac7</color>
+    <color name="colorHint">#CCCCCC</color>
+
+    <color name="touming">#00000000</color>
+    <!--color-->
+    <color name="green">#4caf50</color>
+    <color name="red">#f44336</color>
+    <color name="blue">#2196f3</color>
+    <color name="yellow">#ff9800</color>
+    <color name="toolbar_primary">#2196F3</color>
     <!--zxing-->
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>

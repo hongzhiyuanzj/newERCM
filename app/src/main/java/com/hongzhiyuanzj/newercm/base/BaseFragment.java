@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.hongzhiyuanzj.newercm.view.LoadView;
 
@@ -28,9 +29,16 @@ public class BaseFragment extends Fragment{
         loadView.stopLoading();
     }
 
+    protected FrameLayout.LayoutParams getLayoutParams(){ return loadView.getLayoutParams(); }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         loadView = new LoadView(context);
     }
+
+    protected void setLoadView(FrameLayout frameLayout){
+        frameLayout.addView(getLoadView(), getLayoutParams());
+    }
+
 }

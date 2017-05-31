@@ -44,6 +44,7 @@ public class OKHttpHelper {
 
     public  void postAsycHttp(String url, Map<String, String> datas, final HttpUtils.HttpCallback callback){
         Log.e("URL",url);
+        Log.e("param", datas.toString());
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
         if(datas!=null) {
@@ -64,7 +65,7 @@ public class OKHttpHelper {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Utils.showToast(R.string.net_fail);
+                        callback.onFailure();
                     }
                 });
 
@@ -81,9 +82,6 @@ public class OKHttpHelper {
                             callback.onSuccess(result);
                         }
                     });
-
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

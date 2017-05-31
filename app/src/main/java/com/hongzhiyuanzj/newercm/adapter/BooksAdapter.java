@@ -17,7 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hongzhiyuanzj.newercm.R;
+import com.hongzhiyuanzj.newercm.entity.BookDetail;
+import com.hongzhiyuanzj.newercm.ui.BookDetailActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +35,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
     public static String BookName = "name";
     public static String BookAuthor = "author";
+    public static String BookId = "bookid";
+    public static String BookImg = "bookimg";
 
     private List<HashMap<String, Object>> mDatas;
     private Context context;
@@ -47,9 +52,16 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.poster.setImageDrawable(context.getResources().getDrawable(R.drawable.exp));
-
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if(mDatas.get(position).get(BookName)!=null) {
+                BookDetailActivity.start(context, (String) mDatas.get(position).get(BookId), (String) mDatas.get(position).get(BookName));
+            }
+            }
+        });
+        holder.poster.setImageURI((String)mDatas.get(position).get(BookImg));
         holder.name.setText((String)mDatas.get(position).get(BookName));
         holder.author.setText((String)mDatas.get(position).get(BookAuthor));
     }
@@ -62,11 +74,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.poster)
-        ImageView poster;
+        SimpleDraweeView poster;
         @BindView(R.id.name)
         TextView name;
         @BindView(R.id.author)
         TextView author;
+        @BindView(R.id.container)
+        LinearLayout container;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -75,43 +89,37 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     }
 
     public static class BookItemDecoration extends RecyclerView.ItemDecoration{
-        private Drawable mHorizontalDivider;
-        private Drawable mVerticalDivider;
+        private Context context;
+        private Drawable drawable;
 
         public BookItemDecoration(Context context){
-            mHorizontalDivider = context.getResources().getDrawable(R.drawable.book_divider_shape);
-//            mVerticalDivider = context.getResources().getDrawable(R.drawable.)
-
+            this.context = context;
+            drawable = context.getResources().getDrawable(R.color.textIcon);
         }
 
         @Override
-        public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-            drawHorizontal(c, parent);
-            drawVertical(c, parent);
-        }
-
-        private void drawHorizontal(Canvas canvas, RecyclerView parent){
-            int left = parent.getPaddingLeft();
-            int right = parent.getWidth()-parent.getPaddingRight();
-            int childCount = parent.getChildCount();
-            for(int i=0;i<childCount;i++){
-                View child = parent.getChildAt(i);
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-                int top = child.getBottom()+params.bottomMargin;
-                int bottom = top+mHorizontalDivider.getIntrinsicHeight();
-                mHorizontalDivider.setBounds(left, top, right, bottom);
-                mHorizontalDivider.draw(canvas);
+        public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+            int margin = context.getResources().getDimensionPixelOffset(R.dimen.activity_main_margin);
+            switch (itemPosition % 3) {
+                case 0:
+                    outRect.set(0, 0, margin / 2, margin);
+                    if(itemPosition/3==0){
+                        outRect.set(0, margin, margin/2,margin);
+                    }
+                    break;
+                case 1:
+                    outRect.set(margin / 4, 0, margin / 4, margin);
+                    if(itemPosition/3==0){
+                        outRect.set(margin / 4, margin, margin / 4,margin);
+                    }
+                    break;
+                case 2:
+                    outRect.set(margin / 2, 0, 0, margin);
+                    if(itemPosition/3==0){
+                        outRect.set(margin / 2, margin, 0,margin);
+                    }
+                    break;
             }
-        }
-
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.set(0, 0, 0, mHorizontalDivider.getIntrinsicHeight());
-        }
-
-        private void drawVertical(Canvas canvas, RecyclerView parent){
-
         }
     }
 }

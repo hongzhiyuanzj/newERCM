@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/activity_main_margin"
-        android:layout_marginLeft="-10dp"
         >
         <View
             android:id="@+id/under_line"
@@ -36,9 +35,9 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:textCursorDrawable="@color/textIcon"
-                android:textColorHint="@color/secondaryText"
-                android:padding="0dp"
+                android:textColorHint="@color/colorHint"
                 android:textColor="@color/textIcon"
+                android:hint="@string/book_search_hint"
                 android:layout_toLeftOf="@id/search"/>
         </RelativeLayout>
     </RelativeLayout>

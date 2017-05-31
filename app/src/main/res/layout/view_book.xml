@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:background="@color/textIcon"
-    android:layout_height="match_parent">
-    <ImageView
+    android:layout_height="match_parent"
+    android:id="@+id/container">
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/poster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+        android:layout_height="128dp"
+        fresco:placeholderImage="@mipmap/exp"
+        fresco:placeholderImageScaleType="fitXY" />
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textSize="@dimen/body_device"
         android:textColor="@color/textPrimary"/>
     <TextView
         android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_marginTop="4dp"
         android:textSize="@dimen/caption"
         android:textColor="@color/secondaryText"/>
 </LinearLayout>

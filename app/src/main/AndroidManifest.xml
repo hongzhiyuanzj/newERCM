@@ -23,9 +23,16 @@
         <activity android:name=".ui.WebLoginActivity"></activity>
         <activity android:name=".ui.LoginActivity"></activity>
         <activity android:name=".ui.RegisterActivity"></activity>
-        <activity android:name=".ui.SearchActivity">
+        <activity android:name=".ui.SearchActivity"></activity>
+        <activity android:name=".ui.BookDetailActivity"></activity>
+        <activity android:name=".ui.ApplyActivity"></activity>
+        <activity android:name=".ui.LibrarySearchActivity"></activity>
+        <activity android:name=".ui.LibraryDetailActivity"></activity>
+        <activity android:name=".ui.RatingActivity"></activity>
+        <activity android:name=".ui.TalkListActivity"></activity>
+        <activity android:name=".ui.RecommendListActivity"></activity>
+        <activity android:name=".ui.ReadingActivity"></activity>
 
-        </activity>
     </application>
 
     <uses-feature android:name="android.hardware.camera" />

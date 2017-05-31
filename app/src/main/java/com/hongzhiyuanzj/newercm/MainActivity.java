@@ -3,8 +3,6 @@ package com.hongzhiyuanzj.newercm;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -12,27 +10,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.zxing.client.android.CaptureActivity;
 import com.hongzhiyuanzj.newercm.adapter.MyViewPageAdapter;
-import com.hongzhiyuanzj.newercm.base.BaseActivity;
 import com.hongzhiyuanzj.newercm.base.ToolbarActivity;
 import com.hongzhiyuanzj.newercm.fragment.LibraryFragment;
 import com.hongzhiyuanzj.newercm.fragment.MineFragment;
 import com.hongzhiyuanzj.newercm.fragment.RecommendFragment;
 import com.hongzhiyuanzj.newercm.fragment.ShelfFragment;
+import com.hongzhiyuanzj.newercm.ui.LoginActivity;
 import com.hongzhiyuanzj.newercm.ui.SearchActivity;
 import com.hongzhiyuanzj.newercm.util.Prefer;
 import com.hongzhiyuanzj.newercm.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,11 +42,12 @@ public class MainActivity extends ToolbarActivity{
     @BindView(R.id.tablayout)
     TabLayout tabLayout;
 
-    private MenuItem scanner,search;
+    private MenuItem scanner;
+    private MenuItem search;;
+    private Fragment book_shelf, recommend,library, mine;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("Activity","onCreate");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initActionBar();
@@ -66,10 +61,14 @@ public class MainActivity extends ToolbarActivity{
     }
     private void initViewPager(){
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new ShelfFragment());
-        fragmentList.add(new RecommendFragment());
-        fragmentList.add(new LibraryFragment());
-        fragmentList.add(new MineFragment());
+        book_shelf = new ShelfFragment();
+        fragmentList.add(book_shelf);
+        recommend = new RecommendFragment();
+        fragmentList.add(recommend);
+        library = new LibraryFragment();
+        fragmentList.add(library);
+        mine = new MineFragment();
+        fragmentList.add(mine);
         viewPager.setAdapter(new MyViewPageAdapter(fragmentList, getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -79,22 +78,7 @@ public class MainActivity extends ToolbarActivity{
 
             @Override
             public void onPageSelected(int position) {
-                if(position==1 || position==2){
-                    search.setVisible(true);
-                    scanner.setVisible(false);
-
-                }
-                if(position==0){
-                    search.setVisible(false);
-                    scanner.setVisible(true);
-                    checkMenuItemIsVisiable();
-                }
-                if(position==3){
-                    search.setVisible(false);
-                    scanner.setVisible(false);
-                    checkMenuItemIsVisiable();
-                }
-
+                checkMenuItemIsVisiable(position);
             }
 
             @Override
@@ -120,7 +104,7 @@ public class MainActivity extends ToolbarActivity{
     @Override
     protected void onRestart() {
         super.onRestart();
-        checkMenuItemIsVisiable();
+        checkMenuItemIsVisiable(viewPager.getCurrentItem());
     }
 
     @Override
@@ -129,10 +113,10 @@ public class MainActivity extends ToolbarActivity{
         getMenuInflater().inflate(R.menu.zxing, menu);
         scanner = menu.findItem(R.id.start_zxing);
         search = menu.findItem(R.id.search);
-        scanner.setIcon(Utils.setDrawableTint(scanner.getIcon(), getResources().getColorStateList(R.color.backarrow_color_selector)));
-        search.setIcon(Utils.setDrawableTint(search.getIcon(),getResources().getColorStateList(R.color.backarrow_color_selector)));
-        search.setVisible(false);
-        checkMenuItemIsVisiable();
+        scanner.setIcon(Utils.setDrawableTint(scanner.getIcon(), getResources().getColor(R.color.textIcon)));
+        search.setIcon(Utils.setDrawableTint(search.getIcon(),getResources().getColor(R.color.textIcon)));
+
+        checkMenuItemIsVisiable(viewPager.getCurrentItem());
         return true;
     }
 
@@ -157,6 +141,12 @@ public class MainActivity extends ToolbarActivity{
         viewPager.setCurrentItem(position);
     }
 
+    //改变登录状态时，修改所有界面
+    public void initUI(){
+        ((ShelfFragment)book_shelf).initBookShelf();
+        ((RecommendFragment)recommend).getRecommendDir();
+        ((MineFragment)mine).init();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CaptureActivity.ZXING_REQUEST_CODE && resultCode == RESULT_OK && data!=null){
@@ -164,10 +154,21 @@ public class MainActivity extends ToolbarActivity{
         }
     }
 
-    private void checkMenuItemIsVisiable(){
-        if(Prefer.isLogin()){
+    private void checkMenuItemIsVisiable(int position){
+
+        if(position==2){
+            search.setVisible(true);
+            scanner.setVisible(false);
+        }
+        if(position==0){
+            search.setVisible(false);
             scanner.setVisible(true);
-        }else{
+        }
+        if(position==3||position==1){
+            search.setVisible(false);
+            scanner.setVisible(false);
+        }
+        if(!Prefer.isLogin()){
             scanner.setVisible(false);
         }
     }
@@ -175,10 +176,12 @@ public class MainActivity extends ToolbarActivity{
     private void requestPermission(){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)){
-
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
             }else{
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
             }
+        }else{
+            startActivityForResult(new Intent(this, CaptureActivity.class), CaptureActivity.ZXING_REQUEST_CODE);
         }
     }
 
@@ -195,4 +198,16 @@ public class MainActivity extends ToolbarActivity{
             }
         }
     }
+
+    public Fragment getFragment(Class<? extends Fragment> tClass){
+        if(tClass.getSimpleName().equals("ShelfFragment")){
+            return book_shelf;
+        }
+        if(tClass.getSimpleName().equals("MineFragment")){
+            return mine;
+        }
+        return null;
+    }
+
+
 }

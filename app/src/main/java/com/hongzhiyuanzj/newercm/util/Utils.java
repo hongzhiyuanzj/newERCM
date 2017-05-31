@@ -1,17 +1,24 @@
 package com.hongzhiyuanzj.newercm.util;
 
-import android.app.Application;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.telecom.TelecomManager;
-import android.telephony.TelephonyManager;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.hongzhiyuanzj.newercm.R;
 import com.hongzhiyuanzj.newercm.application.MyApplication;
+import com.hongzhiyuanzj.newercm.base.BaseActivity;
+import com.hongzhiyuanzj.newercm.fragment.LoginDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,9 +52,107 @@ public class Utils {
         return drawable;
     }
 
-    public static String getPhoneNumber(){
-        TelephonyManager telephonyManager = (TelephonyManager)MyApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
-        return telephonyManager.getLine1Number();
+    public static Drawable setDrawableTint(Drawable drawable, int drawid){
+        DrawableCompat.setTint(drawable, drawid);
+        return drawable;
+    }
+
+    static class Pair{
+        int start;
+        int end;
+
+        public Pair(int start , int end){
+            this.start = start;
+            this.end = end;
+        }
+
+        public int getStart() {
+            return start;
+        }
+
+        public void setStart(int start) {
+            this.start = start;
+        }
+
+        public int getEnd() {
+            return end;
+        }
+
+        public void setEnd(int end) {
+            this.end = end;
+        }
+    }
+
+    public static SpannableStringBuilder setTextColor(String string){
+        if(string==null){
+            return new SpannableStringBuilder();
+        }
+        List<Pair> pairs = getPair(string);
+        string = string.replaceAll("\\<em\\>", "").replaceAll("\\</em\\>", "");
+        SpannableStringBuilder builder = new SpannableStringBuilder(string);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(MyApplication.getContext().getResources().getColor(R.color.colorPrimary));
+        for(int i=0;i<pairs.size();i++){
+            Pair pair = pairs.get(i);
+            pair.setStart(pair.getStart()-(4+i*9));
+            pair.setEnd(pair.getEnd()-(4+i*9));
+        }
+        for(Pair pair : pairs){
+
+            builder.setSpan(colorSpan, pair.getStart(), pair.getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return builder;
+
+    }
+
+    private static List<Pair> getPair(String string){
+        int pos = 0;
+        List<Pair> lists = new ArrayList<>();
+        Pair pair = null;
+        while(pos<string.length()){
+            int start = string.indexOf("<em>", pos)+4;
+            if(start==-1){
+                break;
+            }
+            int end = string.indexOf("</em>", pos);
+            if(end==-1){
+                break;
+            }
+            pos = end+1;
+            pair = new Pair(start, end);
+            lists.add(pair);
+        }
+        return lists;
+    }
+
+    public static boolean checkLogin(BaseActivity activity){
+        if(!Prefer.isLogin()){
+            LoginDialog.showDialog(activity);
+            return false;
+        }
+        return true;
+    }
+
+
+    public static String transTime(long time, String format){
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        return formatter.format(new Date(time));
+    }
+    public static String transTime(long time){
+        return transTime(time, "yyyy年MM月dd日");
+    }
+
+    public static void hideSoftInput(Activity activity){
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm!=null){
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(),0);
+        }
+    }
+
+    public static String filterData(String data){
+        if(data==null||data.equals("")){
+            return MyApplication.getContext().getResources().getString(R.string.none);
+        }
+        return data;
     }
 
 }

@@ -3,9 +3,15 @@ package com.hongzhiyuanzj.newercm.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInstaller;
+import android.util.Log;
 import android.widget.SeekBar;
 
+import com.alibaba.fastjson.JSON;
 import com.hongzhiyuanzj.newercm.application.MyApplication;
+import com.hongzhiyuanzj.newercm.entity.Shelf;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hongzhiyuanzj on 2017/4/25.
@@ -13,10 +19,12 @@ import com.hongzhiyuanzj.newercm.application.MyApplication;
 public class Prefer {
     private static String DEFAULT_VALUE = "";
     private static String SHARED_PREF = "shared_pref";
-    public static String USERNAME = "username";
-    public static String PASSWORD = "password";
-    public static String IS_LOGIN = "islogin";
-    public static String SESSION_ID = "session_id";
+    private static String USERID = "userid";
+    private static String USERNAME = "username";
+    private static String PASSWORD = "password";
+    private static String IS_LOGIN = "islogin";
+    private static String SESSION_ID = "session_id";
+    private static String SHELF = "shelf";
 
     public static void save(String key,String value){
         getShared().edit().putString(key, value).commit();
@@ -27,6 +35,14 @@ public class Prefer {
     }
     private static SharedPreferences getShared(){
         return MyApplication.getContext().getSharedPreferences(SHARED_PREF,Context.MODE_PRIVATE);
+    }
+
+    public static void saveUserId(String userid){
+        save(USERID, userid);
+    }
+
+    public static String getUserId(){
+        return get(USERID);
     }
 
     public static void saveUsername(String username){
@@ -59,5 +75,24 @@ public class Prefer {
     public static void setLogin(boolean isLogin){
         getShared().edit().putBoolean(IS_LOGIN, isLogin).commit();
     }
+
+    public static void saveShelf(List<Shelf> shelfs){
+        String json = JSON.toJSONString(shelfs);
+        getShared().edit().putString(SHELF,json).commit();
+
+    }
+
+    public static List<Shelf> getShelf(){
+        String json = getShared().getString(SHELF, DEFAULT_VALUE);
+        if(!json.equals(DEFAULT_VALUE)){
+            Log.e("getshelf",json);
+            return JSON.parseArray(json, Shelf.class);
+        }else{
+            return null;
+        }
+    }
+
+
+
 
 }

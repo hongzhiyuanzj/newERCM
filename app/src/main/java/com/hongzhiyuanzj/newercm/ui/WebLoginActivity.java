@@ -57,10 +57,15 @@ public class WebLoginActivity extends ToolbarActivity{
 
     @OnClick(R.id.web_login)
     public void webLogin(){
-        String result = getIntent().getStringExtra(WEB_LOGIN_INFO);
-        String id = result.replace("http://ercms.iegreen.net:80/client/Login?id=","");
-        Log.e("id", id);
-        HttpUtils.loginToWeb(id, Prefer.getUsername(), Prefer.getPassword(), new HttpUtils.HttpCallback() {
+        String id = getIntent().getStringExtra(WEB_LOGIN_INFO);
+
+        HttpUtils.loginToWeb(id, Prefer.getUserId(), Prefer.getPassword(), new HttpUtils.HttpCallback() {
+
+            @Override
+            public void onFailure() {
+
+            }
+
             @Override
             public void onSuccess(String json) {
                 Result result = JSON.parseObject(json, Result.class);

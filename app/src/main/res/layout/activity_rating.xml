@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/activity_main_margin"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/subhead_device"
+            android:textColor="@color/textPrimary"
+            android:text="@string/rating"/>
+        <com.hongzhiyuanzj.newercm.view.MyRatingBar
+        android:id="@+id/ratingbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:starWidth="24dp"
+        app:starMargin="@dimen/margin"/>
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:textSize="@dimen/subhead_device"
+            android:textColor="@color/textPrimary"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/dividerColor"
+        android:layout_marginTop="@dimen/activity_main_margin"
+        />
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/activity_main_margin"
+        android:gravity="top|left"
+        android:background="@null"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/body_device"
+        android:hint="@string/commit_comment_on_this"
+        android:textColorHint="@color/colorHint"
+        android:lineSpacingMultiplier="1.5"/>
+
+</LinearLayout>

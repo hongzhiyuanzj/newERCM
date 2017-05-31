@@ -1,33 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="@dimen/activity_main_margin"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/mobile"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"/>
+        android:layout_height="1dp"
+        android:background="@color/dividerColor"/>
     <EditText
         android:id="@+id/username"
+        android:drawableLeft="@drawable/ic_person_black_24dp"
+        android:drawablePadding="@dimen/activity_main_margin"
+        android:hint="用户名"
+        android:textColorHint="@color/colorHint"
+        android:textSize="@dimen/subhead_device"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/dividerColor"/>
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:drawablePadding="@dimen/activity_main_margin"
+        android:hint="密码"
+        android:textColorHint="@color/colorHint"
+        android:textSize="@dimen/subhead_device"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/dividerColor"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        >
+        <TextView
+            android:id="@+id/get_code"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/button"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_btn_color_selector"
+            android:layout_alignParentRight="true"
+            android:text="@string/getcode"/>
+        <EditText
+            android:id="@+id/mobile"
+            android:layout_toLeftOf="@id/get_code"
+            android:drawableLeft="@drawable/ic_phone_black_24dp"
+            android:drawablePadding="@dimen/activity_main_margin"
+            android:hint="手机号"
+            android:textColorHint="@color/colorHint"
+            android:textSize="@dimen/subhead_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/dividerColor"/>
     <EditText
         android:id="@+id/certify"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:drawableLeft="@drawable/ic_create_black_24dp"
+        android:drawablePadding="@dimen/activity_main_margin"
+        android:hint="验证码"
+        android:textSize="@dimen/subhead_device"
+        android:textColorHint="@color/colorHint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@null"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dividerColor"/>
     <Button
         android:id="@+id/register"
         style="@style/long_button_style.primary"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_marginTop="@dimen/activity_main_margin"
         android:text="@string/register"/>
-    <Button
-        android:id="@+id/get_code"
-        style="@style/long_button_style.primary"
-        android:layout_marginTop="@dimen/margin"
-        android:text="@string/getcode"/>
+
 </LinearLayout>

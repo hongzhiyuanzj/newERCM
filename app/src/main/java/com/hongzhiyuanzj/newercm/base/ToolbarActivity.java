@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by hongzhiyuanzj on 2017/4/21.
  */
 public abstract class ToolbarActivity extends BaseActivity {
-    private Toolbar toolbar;
+    Toolbar toolbar;
     private TextView title;
     private ActionBar actionBar;
     private LayoutInflater inflater;
@@ -58,7 +58,7 @@ public abstract class ToolbarActivity extends BaseActivity {
                 finish();
             }
         });
-        toolbar.setNavigationIcon(Utils.setDrawableTint(toolbar.getNavigationIcon(), getResources().getColorStateList(R.color.backarrow_color_selector)));
+        toolbar.setNavigationIcon(Utils.setDrawableTint(toolbar.getNavigationIcon(), getResources().getColor(R.color.textIcon)));
     }
 
     public Toolbar getToolbar(){
@@ -72,6 +72,8 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setTitle(int resId){
         title.setText(resId);
     }
+
+    public void setTitle(String s) {title.setText(s);}
 
     public void setDisplayHomeAsUpEnabled(boolean displayHomeAsUpEnabled){
         actionBar.setDisplayHomeAsUpEnabled(displayHomeAsUpEnabled);

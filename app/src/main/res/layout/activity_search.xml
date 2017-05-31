@@ -4,12 +4,16 @@
     android:layout_height="match_parent"
     >
     <include layout="@layout/toolbar_search"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_result"
-        android:paddingLeft="@dimen/activity_main_margin"
-        android:paddingRight="@dimen/activity_main_margin"
+    <FrameLayout
+        android:id="@+id/framelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        ></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_result"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></android.support.v7.widget.RecyclerView>
+    </FrameLayout>
 
 </LinearLayout>

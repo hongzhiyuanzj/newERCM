@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/pull_load_1" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_2" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_3" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_4" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_5" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_6" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_7" android:duration="300"/>
+    <item android:drawable="@drawable/pull_load_8" android:duration="300"/>
+</animation-list>
