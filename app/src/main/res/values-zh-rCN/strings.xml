@@ -53,7 +53,7 @@
   <string name="i_recommend">我要荐购</string>
   
   <string name="data_manage">资料管理</string>
-  <string name="my_recommend">我的荐购</string>
+  <string name="message_manager">消息管理</string>
   <string name="apply_recognize">申请认证</string>
   <string name="safe_setting">安全设置</string>
 
@@ -87,7 +87,9 @@
   <string name="apply_success">申请成功</string>
   <string name="apply_failure">申请失败</string>
 
-
+  <string name="message">消息</string>
+  <string name="take_photo">拍照</string>
+  <string name="choose_photo">从相册选择</string>
   <!--////////////////////////////  zxing ////////////////////////////////////-->
   <string name="app_picker_name">应用</string>
   <string name="bookmark_picker_name">书签</string>

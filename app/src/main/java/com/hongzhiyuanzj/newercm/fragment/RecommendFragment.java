@@ -68,6 +68,12 @@ public class RecommendFragment extends BaseFragment {
         datas.clear();
         HttpUtils.getRecommendDirList(new HttpUtils.HttpCallback() {
             @Override
+            public void onFailure() {
+                super.onFailure();
+                stopLoading();
+            }
+
+            @Override
             public void onSuccess(String json) {
 
             RecommendDirList result = JSON.parseObject(json, RecommendDirList.class);

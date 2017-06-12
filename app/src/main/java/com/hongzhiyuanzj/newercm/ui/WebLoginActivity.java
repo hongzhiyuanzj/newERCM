@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hongzhiyuanzj.newercm.R;
 import com.hongzhiyuanzj.newercm.base.BaseActivity;
 import com.hongzhiyuanzj.newercm.base.ToolbarActivity;
 import com.hongzhiyuanzj.newercm.entity.Result;
 import com.hongzhiyuanzj.newercm.http.AppURL;
 import com.hongzhiyuanzj.newercm.http.HttpUtils;
+import com.hongzhiyuanzj.newercm.util.FileHelper;
 import com.hongzhiyuanzj.newercm.util.Prefer;
 import com.hongzhiyuanzj.newercm.util.Utils;
 
@@ -53,6 +55,8 @@ public class WebLoginActivity extends ToolbarActivity{
         setTitle(R.string.scanner_result);
         nickname.setText(Prefer.getUsername());
         tips.setText("你的账号于"+new SimpleDateFormat("MM月dd日hh时mm分").format(System.currentTimeMillis())+"申请在电脑登录");
+        FileHelper.getInstance().clearCache();
+        headphoto.setImageURI(FileHelper.getInstance().getHeadphoto());
     }
 
     @OnClick(R.id.web_login)

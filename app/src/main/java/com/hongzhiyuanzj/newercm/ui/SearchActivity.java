@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -109,6 +111,7 @@ public class SearchActivity extends BaseActivity{
 
             @Override
             public void onFailure() {
+                super.onFailure();
                 stopLoading();
             }
 
@@ -180,5 +183,12 @@ public class SearchActivity extends BaseActivity{
         Utils.hideSoftInput(this);
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.e("keyCode", keyCode+"");
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+            search();
+        }
+        return true;
+    }
 }

@@ -3,7 +3,10 @@ package com.hongzhiyuanzj.newercm.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -153,6 +156,15 @@ public class Utils {
             return MyApplication.getContext().getResources().getString(R.string.none);
         }
         return data;
+    }
+
+    public static String getPath(BaseActivity activity, Uri uri) {
+        String[] projection = {MediaStore.Video.Media.DATA};
+        Cursor cursor = activity.managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
 }

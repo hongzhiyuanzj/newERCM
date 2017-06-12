@@ -3,6 +3,8 @@ package com.hongzhiyuanzj.newercm;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -14,18 +16,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.google.zxing.client.android.CaptureActivity;
 import com.hongzhiyuanzj.newercm.adapter.MyViewPageAdapter;
 import com.hongzhiyuanzj.newercm.base.ToolbarActivity;
+import com.hongzhiyuanzj.newercm.fragment.ChoosePhotoDialog;
 import com.hongzhiyuanzj.newercm.fragment.LibraryFragment;
 import com.hongzhiyuanzj.newercm.fragment.MineFragment;
 import com.hongzhiyuanzj.newercm.fragment.RecommendFragment;
 import com.hongzhiyuanzj.newercm.fragment.ShelfFragment;
 import com.hongzhiyuanzj.newercm.ui.LoginActivity;
 import com.hongzhiyuanzj.newercm.ui.SearchActivity;
+import com.hongzhiyuanzj.newercm.util.FileHelper;
 import com.hongzhiyuanzj.newercm.util.Prefer;
 import com.hongzhiyuanzj.newercm.util.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +56,10 @@ public class MainActivity extends ToolbarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //*********************
+        Prefer.setLogin(true);
+        //*******************
         ButterKnife.bind(this);
         initActionBar();
         initViewPager();
@@ -151,6 +162,20 @@ public class MainActivity extends ToolbarActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CaptureActivity.ZXING_REQUEST_CODE && resultCode == RESULT_OK && data!=null){
             String capture_data = data.getStringExtra(CaptureActivity.EXTRA_DATA);
+        }
+        if(requestCode == ChoosePhotoDialog.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data!=null){
+
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            ((MineFragment)mine).setHeadPhoto(bitmap);
+            FileHelper.getInstance().saveHeadphoto(bitmap);
+        }
+        if(requestCode == ChoosePhotoDialog.REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data!=null){
+            Uri uri = data.getData();
+            FileHelper.getInstance().saveHeadphoto(uri);
+            ((MineFragment)mine).setHeadPhoto(FileHelper.getInstance().getHeadphoto());
+
+
         }
     }
 

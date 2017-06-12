@@ -120,6 +120,7 @@ public class LibraryFragment extends BaseFragment{
         HttpUtils.getBookList(page,12, "", new HttpUtils.HttpCallback() {
             @Override
             public void onFailure() {
+                super.onFailure();
                 stopLoading();
             }
 

@@ -1,5 +1,7 @@
 package com.hongzhiyuanzj.newercm.fragment;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hongzhiyuanzj.newercm.MainActivity;
 import com.hongzhiyuanzj.newercm.R;
 import com.hongzhiyuanzj.newercm.application.MyApplication;
@@ -18,6 +21,8 @@ import com.hongzhiyuanzj.newercm.base.BaseActivity;
 import com.hongzhiyuanzj.newercm.base.BaseFragment;
 import com.hongzhiyuanzj.newercm.ui.ApplyActivity;
 import com.hongzhiyuanzj.newercm.ui.LoginActivity;
+import com.hongzhiyuanzj.newercm.ui.MessageActivity;
+import com.hongzhiyuanzj.newercm.util.FileHelper;
 import com.hongzhiyuanzj.newercm.util.Prefer;
 import com.hongzhiyuanzj.newercm.util.Utils;
 
@@ -34,6 +39,8 @@ import okhttp3.internal.Util;
  */
 public class MineFragment extends BaseFragment{
 
+
+
     private Handler handler = new Handler();
     @BindView(R.id.logout)Button logout;
     @BindView(R.id.data_manage_img)ImageView data_img;
@@ -42,13 +49,14 @@ public class MineFragment extends BaseFragment{
     @BindView(R.id.safe_setting_img)ImageView safe;
     @BindView(R.id.name)TextView name;
     @BindView(R.id.account)TextView account;
+    @BindView(R.id.headphoto)ImageView headphoto;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, null);
         ButterKnife.bind(this,view);
         data_img.setImageDrawable(Utils.setDrawableTint(getResources().getDrawable(R.drawable.ic_face_black_24dp), getResources().getColor(R.color.yellow)));
-        recommend.setImageDrawable(Utils.setDrawableTint(getResources().getDrawable(R.drawable.ic_favorite_black_24dp), getResources().getColor(R.color.red)));
+        recommend.setImageDrawable(Utils.setDrawableTint(getResources().getDrawable(R.drawable.ic_email_black_24dp), getResources().getColor(R.color.red)));
         apply.setImageDrawable(Utils.setDrawableTint(getResources().getDrawable(R.drawable.ic_touch_app_black_24dp), getResources().getColor(R.color.blue)));
         safe.setImageDrawable(Utils.setDrawableTint(getResources().getDrawable(R.drawable.ic_new_releases_black_24dp), getResources().getColor(R.color.green)));
         init();
@@ -75,9 +83,11 @@ public class MineFragment extends BaseFragment{
             logout.setText("退出登录");
             name.setText(Prefer.getUsername());
             account.setText(Prefer.getUserId());
+            headphoto.setImageURI(FileHelper.getInstance().getHeadphoto());
         }else{
             logout.setText("登录");
             name.setText("未登录");
+            headphoto.setImageDrawable(getResources().getDrawable(R.mipmap.headphoto));
         }
     }
 
@@ -92,7 +102,7 @@ public class MineFragment extends BaseFragment{
                 break;
             case R.id.recommend_container:
                 if(Utils.checkLogin((BaseActivity) getActivity())){
-                    Utils.showToast("我的荐购");
+                    MessageActivity.start(getContext());
                 }
 
                 break;
@@ -109,4 +119,18 @@ public class MineFragment extends BaseFragment{
         }
     }
 
+    @OnClick(R.id.headphoto)
+    public void chageHeadphoto(){
+        if(Utils.checkLogin((BaseActivity) getActivity())) {
+            ChoosePhotoDialog.show((BaseActivity) getActivity());
+        }
+    }
+
+    public void setHeadPhoto(Bitmap bitmap){
+        headphoto.setImageBitmap(bitmap);
+    }
+
+    public void setHeadPhoto(Uri uri){
+        headphoto.setImageURI(uri);
+    }
 }

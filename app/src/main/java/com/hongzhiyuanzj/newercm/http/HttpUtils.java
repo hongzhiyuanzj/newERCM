@@ -246,6 +246,15 @@ public class HttpUtils {
     }
 
 
+    public static void getMessageList(int page, HttpCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("Page.dwStartLine", page+"");
+        map.put("Page.dwNeedLines",Values.page_number+"");
+        map.put("userTypeId",0+"");
+        OKHttpHelper.getInstance().postAsycHttp(AppURL.isExistMobile, map, callback);
+
+    }
+
     public static abstract class HttpCallback{
         public void onSuccess(String json){};
         public void onFailure(){

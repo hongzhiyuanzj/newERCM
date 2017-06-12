@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -81,6 +82,13 @@ public class LibrarySearchActivity extends BaseActivity{
         startLoading();
         Utils.hideSoftInput(this);
         HttpUtils.getLibraryList(input.getText().toString(), new HttpUtils.HttpCallback() {
+
+            @Override
+            public void onFailure() {
+                super.onFailure();
+                stopLoading();
+            }
+
             @Override
             public void onSuccess(String json) {
                 LibraryList libraryList = JSON.parseObject(json, LibraryList.class);
@@ -112,6 +120,14 @@ public class LibrarySearchActivity extends BaseActivity{
             map.put(LibraryListAdapter.LIBRARY, library);
             datas.add(map);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+            search();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

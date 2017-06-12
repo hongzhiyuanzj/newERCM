@@ -25,6 +25,7 @@ import com.hongzhiyuanzj.newercm.base.BaseActivity;
 import com.hongzhiyuanzj.newercm.base.ToolbarActivity;
 import com.hongzhiyuanzj.newercm.entity.Result;
 import com.hongzhiyuanzj.newercm.http.HttpUtils;
+import com.hongzhiyuanzj.newercm.util.FileHelper;
 import com.hongzhiyuanzj.newercm.util.MD5;
 import com.hongzhiyuanzj.newercm.util.Prefer;
 import com.hongzhiyuanzj.newercm.util.Utils;
@@ -126,6 +127,8 @@ public class LoginActivity extends ToolbarActivity{
 //                }
 //            }
 //        });
+        FileHelper.getInstance().clearCache();
+        headphoto.setImageURI(FileHelper.getInstance().getHeadphoto());
     }
 
 

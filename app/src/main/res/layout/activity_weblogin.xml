@@ -12,7 +12,7 @@
         android:layout_height="96dp"
         android:layout_marginTop="48dp"
         android:scaleType="fitXY"
-        fresco:placeholderImage="@mipmap/ic_launcher"
+        fresco:placeholderImage="@mipmap/headphoto"
         fresco:roundAsCircle="true"
         fresco:roundingBorderWidth="1dp"
         fresco:roundingBorderColor="@color/secondaryText"
