@@ -58,7 +58,7 @@ public class MainActivity extends ToolbarActivity{
         setContentView(R.layout.activity_main);
 
         //*********************
-        Prefer.setLogin(true);
+//        Prefer.setLogin(true);
         //*******************
         ButterKnife.bind(this);
         initActionBar();
