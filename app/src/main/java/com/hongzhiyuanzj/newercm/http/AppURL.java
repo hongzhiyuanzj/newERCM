@@ -6,8 +6,8 @@ import com.hongzhiyuanzj.newercm.util.Prefer;
  * Created by hongzhiyuanzj on 2017/4/24.
  */
 public class AppURL {
-//    public static String URL = "http://ercms.iegreen.net/";
-    public static String URL = "http://122.224.73.226:8081/";
+    public static String URL = "http://ercms.iegreen.net/";
+//    public static String URL = "http://122.224.73.226:8081/";
     public static String LoginToWeb  = URL+"auth/Login"; //扫码登录
     public static String getCertifyCode = URL+"auth/SMSCode";  //获取短信验证码
     public static String Login = URL+"auth/Login";  //登录
